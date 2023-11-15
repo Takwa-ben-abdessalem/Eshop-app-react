@@ -10,7 +10,7 @@ const Search = ({value, onChange}) => {
         type="text" 
         placeholder='Search by name'
         value={value}
-        onChange={onchange}/>
+        onChange={onChange}/>
     </div>
   )
 }

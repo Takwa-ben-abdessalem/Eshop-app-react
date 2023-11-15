@@ -1,13 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
 //rxslice
 const initialState = {
-  //  name: "",
-  //  imageURL:"",
-  //  price: null,
-   // category: "",
-   // brand: "",
-   // desc: "",
+
    products: [],
+   minPrice:null,
+   maxPrice:null
 
 }
 
@@ -19,22 +16,27 @@ const productSlice = createSlice({
         console.log(action.payload)
         state.products = action.payload.products
 
-        // const {name, imageURL, price,category,brand,desc} = action.payload
-        // state.name = name;
-        // state.imageURL = imageURL
-        // state.price = price
-        // state.category = category
-        // state.brand = brand
-        // state.desc = desc
-
-     //   console.log(state.name)
-
     },
+
+    GET_PRICE_RANGE(state,action) {
+         const{products} = action.payload
+         const array = []
+         products.map((product) => {
+          const price = product.price
+          return array.push(price)
+         });
+         const max = Math.max(...array)
+         const min = Math.min(...array)
+
+         state.minPrice = min
+         state.maxPrice = max
+    },
+    
    
   }
 });
 
-export const {GET_PRODUCT} = productSlice.actions
+export const {GET_PRODUCT,GET_PRICE_RANGE} = productSlice.actions
 
 // export const selectname = (state) => state.product.name;
 // export const selectimageURL = (state) => state.product.imageURL
@@ -43,5 +45,7 @@ export const {GET_PRODUCT} = productSlice.actions
 // export const selectbrand = (state) => state.product.brand
 // export const selectdesc = (state) => state.product.desc
 export const selectProducts = (state) => state.product.products
+export const selectMinPrice = (state) => state.product.minPrice
+export const selectMaxPrice = (state) => state.product.maxPrice
 
 export default productSlice.reducer
