@@ -7,6 +7,9 @@ import AdminOnlyRoute from "./components/adminOnlyRoute/AdminOnlyRoute";
 import ProductDetails from "./components/product/productDetails/ProductDetails";
 import CheckoutDetails from "./pages/checkout/CheckoutDetails";
 import Checkout from "./pages/checkout/Checkout";
+import CheckoutSuccess from "./pages/checkout/CheckoutSuccess";
+import OrderDetails from "./pages/orderDetails/OrderDetails";
+import ReviewProduct from "./components/reviewProducts/ReviewProduct";
 
 
 function App() {
@@ -27,6 +30,10 @@ function App() {
            <Route path="/reset" element={ <Reset></Reset> }></Route>
            <Route path="/checkout-details" element={ <CheckoutDetails></CheckoutDetails> }></Route>
            <Route path="/checkout" element={ <Checkout></Checkout> }></Route>
+           <Route path="/checkout-success" element={ <CheckoutSuccess></CheckoutSuccess> }></Route>
+           <Route path="/order-history" element={ <OrderHistory></OrderHistory> }></Route>
+           <Route path="/order-details/:id" element={ <OrderDetails/> }></Route>
+           <Route path="/review-product/:id" element={ <ReviewProduct/> }></Route>
 
 
         </Routes>

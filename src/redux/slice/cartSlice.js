@@ -97,6 +97,7 @@ const cartSlice = createSlice({
         }, 0);
         state.cartTotalAmount = totalAmount;
       },
+      
       CLEAR_CART(state, action) {
         state.cartItems = [];
         toast.info(`Cart cleared`, {

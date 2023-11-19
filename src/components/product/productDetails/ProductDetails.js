@@ -7,6 +7,7 @@ import styles from "./ProductDetails.module.scss"
 import spinnerImage from "../../../assets/spinner.jpg"
 import { useDispatch, useSelector } from 'react-redux';
 import { ADD_TO_CART, CALCULATE_TOTAL_QUANTITY, DECREASE_CART, selectCartItems } from '../../../redux/slice/cartSlice';
+import useFetchDocument from '../../../customHooks/useFetchDocument';
 
 const ProductDetails = () => {
   const {id} = useParams();
@@ -20,27 +21,33 @@ const ProductDetails = () => {
     return cart.id === id
   })
 
-  useEffect(() => {
-    getProduct()
-  },[])
-  const getProduct =  async() => {
+  const {document} = useFetchDocument("products", id)
 
-    const docRef = doc(db, "products", id);
-    const  docSnap = await getDoc(docRef);
+     useEffect(() => {
+     setProducts(document)
+   },[document])
 
-    if (docSnap.exists()) {
-      // console.log("Document data:", docSnap.data());
-      const obj = {
-        id: id,
-        ...docSnap.data()
-      }
-      setProducts(obj)
-    } else {
-      // docSnap.data() will be undefined in this case
-      console.log("No such document!");
-      toast.error("product not found")
-}
-  }
+//   useEffect(() => {
+//     getProduct()
+//   },[])
+//   const getProduct =  async() => {
+
+//     const docRef = doc(db, "products", id);
+//     const  docSnap = await getDoc(docRef);
+
+//     if (docSnap.exists()) {
+//       // console.log("Document data:", docSnap.data());
+//       const obj = {
+//         id: id,
+//         ...docSnap.data()
+//       }
+//       setProducts(obj)
+//     } else {
+//       // docSnap.data() will be undefined in this case
+//       console.log("No such document!");
+//       toast.error("product not found")
+// }
+//   }
 const addToCart = (product) => {
   dispatch(ADD_TO_CART(product))
   dispatch(CALCULATE_TOTAL_QUANTITY())
